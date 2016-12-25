@@ -18,7 +18,7 @@ services:
     build:
       context: kafka
       args:
-        kafka_broker_id: 1
+        kafka_broker_id: 2
     command: /kafka/bin/kafka-server-start.sh /kafka/config/server.properties
     depends_on:
       - zookeeper
@@ -27,7 +27,7 @@ services:
     build:
       context: kafka
       args:
-        kafka_broker_id: 1
+        kafka_broker_id: 3
     command: /kafka/bin/kafka-server-start.sh /kafka/config/server.properties
     depends_on:
       - zookeeper
