@@ -2,21 +2,32 @@ version: '2'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
-
-  kafka:
-    image: wurstmeister/kafka
-    container_name: kafka
     ports:
-     - "9092:9092"
+      - "2181:2181"
+
+  kafka1:
+    build:
+      context: kafka
+      args:
+        kafka_broker_id: 1
+    command: /kafka/bin/kafka-server-start.sh /kafka/config/server.properties
     depends_on:
-     - zookeeper
-    links:
       - zookeeper
-    environment:
-     KAFKA_BROKER_ID: 1
-     KAFKA_ADVERTISED_HOST_NAME: kafka
-     KAFKA_ADVERTISED_PORT: 9092
-     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-     KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-     KAFKA_DEFAULT_REPLICATION_FACTOR: 1
-     KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
+  kafka2:
+    build:
+      context: kafka
+      args:
+        kafka_broker_id: 1
+    command: /kafka/bin/kafka-server-start.sh /kafka/config/server.properties
+    depends_on:
+      - zookeeper
+
+  kafka3:
+    build:
+      context: kafka
+      args:
+        kafka_broker_id: 1
+    command: /kafka/bin/kafka-server-start.sh /kafka/config/server.properties
+    depends_on:
+      - zookeeper
